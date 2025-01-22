@@ -3,9 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { useWishlist } from '@/app/context/WishlistContext';
-
 import { Loader } from 'lucide-react';
-
 import { addToCart } from '@/app/redux/cartSlice';
 import { client } from '@/sanity/lib/client';
 import Brand from '@/app/components/brand';
@@ -158,7 +156,7 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
 
-          <div className="flex gap-6 mt-8">
+          <div className="flex flex-col sm:flex-row gap-4 mt-8">
             <button
               className="px-8 py-4 bg-gradient-to-r from-[#6A4C93] to-[#2A254B] text-white rounded-lg transform transition-transform hover:scale-105"
               onClick={handleAddToCart}
@@ -205,11 +203,9 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
             ))}
           </div>
         </section>
-        
       )}
       <Brand />
     </section>
-    
   );
 };
 

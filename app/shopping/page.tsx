@@ -40,7 +40,7 @@ const Shopping = () => {
                                         width={70}
                                         height={70}
                                         alt={item.name}
-                                        className="rounded-lg object-cover"
+                                        className="rounded-lg object-cover w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] md:w-[150px] md:h-[150px] transition-all"
                                     />
                                     
                                     {/* Product Details */}
