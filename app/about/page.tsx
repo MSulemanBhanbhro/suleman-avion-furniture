@@ -4,6 +4,7 @@ import { TbTruckDelivery } from 'react-icons/tb';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 import { LuSprout } from 'react-icons/lu';
 import { MdOutlinePriceChange } from 'react-icons/md';
+import Brand from '../components/brand';
 
 const About = () => {
   return (
@@ -11,28 +12,28 @@ const About = () => {
       <div className="py-12 text-[#2A254B] mt-2">
         {/* Header Section */}
         <div className="my-12 text-center">
-          <h1 className="text-xl md:text-2xl lg:text-3xl">
-            A brand built on the love of craftsmanship, <br /> quality, and outstanding customer service
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold">
+            A Brand Built on the Love of Craftsmanship, Quality, and Outstanding Customer Service
           </h1>
         </div>
 
         {/* First Content Block */}
-        <div className="flex flex-col md:flex-row gap-8 mt-[200px]">
+        <div className="flex flex-col md:flex-row gap-8 mt-24">
           <div className="w-full md:w-1/2 px-4 md:px-12 py-8 flex flex-col justify-between">
             <div>
-              <h1 className="text-xl md:text-2xl">
-                From a studio in London to a global brand with <br /> over 400 outlets
-              </h1>
-              <h1 className="py-6 text-base md:text-lg">
-                When we started Avion, the idea was simple. Make high-quality furniture <br /> affordable and available for the mass market.
-              </h1>
-              <h1 className="text-sm md:text-base">
-                Handmade and lovingly crafted furniture and homeware is what we live, <br /> breathe, and design, so our Chelsea boutique became the hotbed for the <br /> London interior design community.
-              </h1>
+              <h2 className="text-xl md:text-2xl font-semibold">
+                From a Studio in London to a Global Brand with Over 400 Outlets
+              </h2>
+              <p className="py-6 text-base md:text-lg">
+                When we started Avion, the idea was simple: make high-quality furniture affordable and available for the mass market.
+              </p>
+              <p className="text-sm md:text-base">
+                Handmade and lovingly crafted furniture and homeware is what we live, breathe, and design. Our Chelsea boutique became the hotbed for the London interior design community.
+              </p>
             </div>
             <div className="my-10">
               <button className="bg-[#F9F9F9] py-4 px-6 rounded-[5px] text-[#2A254B] hover:bg-[#2A254B] hover:text-white transition-all duration-300">
-                Get in touch
+                Get in Touch
               </button>
             </div>
           </div>
@@ -65,55 +66,27 @@ const About = () => {
 
           <div className="w-full md:w-1/2 px-4 md:px-12 py-8 flex flex-col justify-between">
             <div>
-              <h1 className="text-xl md:text-2xl">
-                From a studio in London to a global brand with <br /> over 400 outlets
-              </h1>
-              <h1 className="py-6 text-base md:text-lg">
-                When we started Avion, the idea was simple. Make high-quality furniture <br /> affordable and available for the mass market.
-              </h1>
-              <h1 className="text-sm md:text-base">
-                Handmade and lovingly crafted furniture and homeware is what we live, <br /> breathe, and design, so our Chelsea boutique became the hotbed for the <br /> London interior design community.
-              </h1>
+              <h2 className="text-xl md:text-2xl font-semibold">
+                From a Studio in London to a Global Brand with Over 400 Outlets
+              </h2>
+              <p className="py-6 text-base md:text-lg">
+                When we started Avion, the idea was simple: make high-quality furniture affordable and available for the mass market.
+              </p>
+              <p className="text-sm md:text-base">
+                Handmade and lovingly crafted furniture and homeware is what we live, breathe, and design. Our Chelsea boutique became the hotbed for the London interior design community.
+              </p>
             </div>
             <div className="my-10">
               <button className="bg-[#F9F9F9] py-4 px-6 rounded-[5px] text-[#2A254B] hover:bg-[#2A254B] hover:text-white transition-all duration-300">
-                Get in touch
+                Get in Touch
               </button>
             </div>
           </div>
         </div>
 
         {/* What Makes Our Brand Different Section */}
-        <div className="px-4 md:px-8 py-12 text-[#2A254B] mt-12">
-          <h1 className="text-center text-xl md:text-2xl lg:text-3xl font-semibold">
-            What makes our brand different
-          </h1>
-          <div className="flex flex-col md:flex-row gap-8 mt-12 text-base md:text-lg">
-            <div className="flex flex-col w-full md:w-1/4 p-4 rounded-lg">
-              <TbTruckDelivery size={30} className="text-[#2A254B]" />
-              <p className="py-4 font-semibold">Next day as standard</p>
-              <p>Order before 3pm and get your order the next day as standard.</p>
-            </div>
-
-            <div className="flex flex-col w-full md:w-1/4 p-4 rounded-lg">
-              <IoIosCheckmarkCircleOutline size={30} className="text-[#2A254B]" />
-              <p className="py-4 font-semibold">Made by true artisans</p>
-              <p>Hand-crafted goods made with real passion and craftsmanship.</p>
-            </div>
-
-            <div className="flex flex-col w-full md:w-1/4 p-4 rounded-lg">
-              <MdOutlinePriceChange size={30} className="text-[#2A254B]" />
-              <p className="py-4 font-semibold">Unbeatable prices</p>
-              <p>For our material and quality, you won’t find better prices anywhere.</p>
-            </div>
-
-            <div className="flex flex-col w-full md:w-1/4 p-4 rounded-lg">
-              <LuSprout size={30} className="text-[#2A254B]" />
-              <p className="py-4 font-semibold">Recycled packaging</p>
-              <p>We use 100% recycled packaging to ensure our footprint is manageable.</p>
-            </div>
-          </div>
-        </div>
+        <Brand />
+        
 
         {/* Newsletter Signup Section */}
         <div

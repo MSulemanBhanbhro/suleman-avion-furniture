@@ -1,6 +1,6 @@
-"use client"; // This is an interactive component
-
+"use client"; 
 import { useWishlist } from "../context/WishlistContext";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"; // React Icons import
 
 interface Product {
   _id: string;
@@ -16,12 +16,12 @@ export default function WishlistButton({ product }: { product: Product }) {
 
   return (
     <button
-      className={`mt-2 py-2 px-4 rounded ${
-        isInWishlist ? "bg-red-500 text-white" : "bg-blue-500 text-white"
+      className={`p-2 rounded-full transition ${
+        isInWishlist ? "text-red-500" : "text-gray-500 hover:text-red-500"
       }`}
       onClick={() => (isInWishlist ? removeFromWishlist(product._id) : addToWishlist(product))}
     >
-      {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+      {isInWishlist ? <AiFillHeart size={24} /> : <AiOutlineHeart size={24} />}
     </button>
   );
 }

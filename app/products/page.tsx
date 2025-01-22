@@ -61,14 +61,14 @@ const ProductsPage = () => {
     <section className="px-4 md:px-8 py-12 text-[#2A254B] mt-12">
       <h1 className="text-2xl font-semibold md:text-3xl">New Ceramics</h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
         {loading ? (
           <div className="col-span-4 flex justify-center items-center" aria-live="polite">
             <Loader className="w-12 h-12 animate-spin text-[#2A254B]" />
           </div>
         ) : currentProducts.length > 0 ? (
           currentProducts.map((product) => (
-            <div className="w-full h-auto" key={product._id}>
+            <div className="w-full h-auto relative" key={product._id}>
               <Link href={`/products/${product.slug}`} passHref>
                 <Image
                   src={product.imageUrl}
@@ -78,12 +78,16 @@ const ProductsPage = () => {
                   className="w-full h-[250px] sm:h-[300px] md:h-[350px] object-cover rounded-md"
                   {...(currentPage === 1 ? { priority: true } : { loading: "lazy" })}
                 />
-
               </Link>
+
+              {/* Wishlist Button on Top-Right */}
+              <div className="absolute top-3 right-3">
+                <WishlistButton product={product} />
+              </div>
+
               <div className="my-4 text-[#2A254B]">
                 <h2 className="py-2 text-sm sm:text-base font-medium">{product.name}</h2>
                 <p className="text-lg font-semibold">${product.price}</p>
-                <WishlistButton product={product} />
               </div>
             </div>
           ))
@@ -92,48 +96,46 @@ const ProductsPage = () => {
         )}
       </div>
 
-      {/* 🔹 Pagination Controls */}
-
+      {/* 🔹 Modern Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row justify-center mt-8 space-y-4 sm:space-y-0 sm:space-x-4">
-          <button
-            className={`px-4 py-2 border rounded-md transition ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
-              }`}
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            aria-label="Go to previous page"
-          >
-            Previous
-          </button>
+        <div className="flex justify-center mt-10">
+          <nav className="inline-flex items-center space-x-2 bg-white shadow-md rounded-lg px-4 py-2">
+            {/* Previous Button */}
+            <button
+              onClick={goToPreviousPage}
+              disabled={currentPage === 1}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition 
+          ${currentPage === 1 ? "text-gray-400 cursor-not-allowed" : "bg-gray-100 hover:bg-gray-200"}`}
+            >
+              ⬅ Prev
+            </button>
 
-          {/* 🔹 Page Numbers */}
-          <div className="flex space-x-4 sm:space-x-0 sm:flex-wrap justify-center">
+            {/* Page Numbers */}
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
-                className={`px-3 py-2 border rounded-md transition ${currentPage === index + 1 ? "bg-[#2A254B] text-white" : "hover:bg-gray-200"
-                  }`}
                 onClick={() => goToPage(index + 1)}
-                aria-label={`Go to page ${index + 1}`}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition 
+            ${currentPage === index + 1 ? "bg-[#2A254B] text-white" : "bg-gray-100 hover:bg-gray-200"}`}
               >
                 {index + 1}
               </button>
             ))}
-          </div>
 
-          <button
-            className={`px-4 py-2 border rounded-md transition ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
-              }`}
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            aria-label="Go to next page"
-          >
-            Next
-          </button>
+            {/* Next Button */}
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition 
+          ${currentPage === totalPages ? "text-gray-400 cursor-not-allowed" : "bg-gray-100 hover:bg-gray-200"}`}
+            >
+              Next ➡
+            </button>
+          </nav>
         </div>
       )}
-
     </section>
+
   );
 };
 

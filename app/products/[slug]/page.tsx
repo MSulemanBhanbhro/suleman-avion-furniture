@@ -2,14 +2,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
-
-
 import { useWishlist } from '@/app/context/WishlistContext';
-import Link from 'next/link';
+
 import { Loader } from 'lucide-react';
-import clsx from 'clsx';
+
 import { addToCart } from '@/app/redux/cartSlice';
 import { client } from '@/sanity/lib/client';
+import Brand from '@/app/components/brand';
 
 type Product = {
   _id: number;
@@ -63,23 +62,24 @@ async function getData(slug: string) {
 }
 
 const ProductListing = ({ params }: { params: { slug: string } }) => {
+  const [currentSlug, setCurrentSlug] = useState(params.slug);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
   const dispatch = useDispatch();
   const { addToWishlist } = useWishlist();
 
-  const fetchData = useCallback(async () => {
-    const data = await getData(params.slug);
+  const fetchData = useCallback(async (slug: string) => {
+    const data = await getData(slug);
     if (data) {
       setProduct(data.product);
       setRelatedProducts(data.relatedProducts);
     }
-  }, [params.slug]);
+  }, []);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchData(currentSlug);
+  }, [currentSlug, fetchData]);
 
   const handleAddToCart = () => {
     if (!product) return;
@@ -112,26 +112,26 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <section className="px-6 md:px-12 py-10 bg-gray-50">
-      <div className="flex flex-col md:flex-row gap-8 items-center bg-white shadow-lg p-6 rounded-lg">
+    <section className="px-6 md:px-12 py-10 bg-gradient-to-b from-gray-50 to-white">
+      <div className="flex flex-col md:flex-row gap-8 items-center bg-white shadow-lg p-8 rounded-lg transform transition-transform ">
         <div className="w-full md:w-1/2">
           <Image
             src={product.imageUrl}
             width={600}
             height={600}
             alt={product.name}
-            className="w-full h-[540px] object-cover rounded-md hover:scale-105 transition-all"
+            className="w-full h-[540px] object-cover rounded-lg transition-all ease-in-out transform hover:scale-105"
             priority
           />
         </div>
         <div className="w-full md:w-1/2 space-y-4">
-          <h1 className="text-3xl font-semibold text-gray-900">{product.name}</h1>
-          <p className="text-xl text-gray-700">${product.price}</p>
+          <h1 className="text-4xl font-semibold text-gray-900">{product.name}</h1>
+          <p className="text-2xl text-gray-700">${product.price}</p>
           <p className="text-gray-600 leading-relaxed">{product.description}</p>
 
           {product.features && product.features.length > 0 && (
-            <div className="mt-4 p-4 border border-gray-300 rounded-md">
-              <h3 className="text-lg font-semibold mb-3">Key Features</h3>
+            <div className="mt-6 p-6 border border-gray-300 rounded-md shadow-md">
+              <h3 className="text-xl font-semibold mb-4">Key Features</h3>
               <ul className="list-disc list-inside text-gray-700">
                 {product.features.map((feature, index) => (
                   <li key={index}>{feature}</li>
@@ -140,28 +140,33 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
             </div>
           )}
 
-          <div className="p-4 border rounded-md">
-            <h3 className="text-lg font-semibold mb-2">Product Dimensions</h3>
-            <div className="text-gray-700">
-              <p>Width: {product.dimensions.width} </p>
-              <p>Height: {product.dimensions.height} </p>
-              <p>Depth: {product.dimensions.depth} </p>
+          <div className="p-6 border rounded-md shadow-md">
+            <h3 className="text-xl font-semibold mb-4">Product Dimensions</h3>
+            <div className="text-gray-700 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500">Width:</span>
+                <span>{product.dimensions.width} cm</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500">Height:</span>
+                <span>{product.dimensions.height} cm</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500">Depth:</span>
+                <span>{product.dimensions.depth} cm</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-6 mt-8">
             <button
-              className={clsx(
-                "px-6 py-3 bg-[#2A254B] text-white rounded-md hover:bg-[#1d1b38] focus:outline-none focus:ring-2 focus:ring-[#2A254B]",
-                { "opacity-50 cursor-not-allowed": !product }
-              )}
+              className="px-8 py-4 bg-gradient-to-r from-[#6A4C93] to-[#2A254B] text-white rounded-lg transform transition-transform hover:scale-105"
               onClick={handleAddToCart}
-              disabled={!product}
             >
               Add to Cart
             </button>
             <button
-              className="px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className="px-8 py-4 bg-red-600 text-white rounded-lg transform transition-transform hover:scale-105"
               onClick={handleAddToWishlist}
             >
               Wishlist ❤️
@@ -178,27 +183,33 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
 
       {relatedProducts.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">Related Products</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <h2 className="text-3xl font-semibold mb-6 text-gray-900">You might also like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {relatedProducts.map((item) => (
-              <div key={item._id} className="bg-white p-4 rounded-md shadow-md hover:shadow-lg transition-all">
+              <div
+                key={item._id}
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all cursor-pointer transform hover:scale-105"
+                onClick={() => setCurrentSlug(item.slug)}
+              >
                 <Image
                   src={item.imageUrl}
                   width={200}
                   height={200}
                   alt={item.name}
-                  className="w-full h-[200px] object-cover rounded-md hover:scale-105 transition-all"
+                  className="w-full h-[200px] object-cover rounded-md"
                   loading="lazy"
                 />
-                <h3 className="mt-2 text-lg font-medium">{item.name}</h3>
+                <h3 className="mt-4 text-lg font-medium text-gray-800">{item.name}</h3>
                 <p className="text-sm text-gray-600">${item.price}</p>
-                <Link href={`/product/${item.slug}`} className="text-blue-600 mt-2 block">View Product</Link>
               </div>
             ))}
           </div>
         </section>
+        
       )}
+      <Brand />
     </section>
+    
   );
 };
 

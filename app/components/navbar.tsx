@@ -75,6 +75,8 @@ const NavbarClient = () => {
           </Link>
 
           <IoIosContact size={25} className="text-[#2A254B] cursor-pointer" aria-label="Profile" />
+          
+          {/* Toggle Menu Button */}
           <button className="text-2xl focus:outline-none z-30" onClick={toggleMenu} aria-label="Toggle Menu">
             {!menuOpen ? <IoMenu /> : <IoClose />}
           </button>
@@ -85,6 +87,7 @@ const NavbarClient = () => {
 
       {/* Mobile Navigation */}
       <div className={`fixed top-0 right-0 py-6 h-full w-3/4 bg-white shadow-lg transition-transform duration-300 ease-in-out ${menuOpen ? 'translate-x-0' : 'translate-x-full'} md:static md:w-auto md:translate-x-0 md:bg-transparent md:shadow-none z-20`}>
+        {/* Close button only renders when menu is open */}
         {menuOpen && (
           <button className="text-2xl focus:outline-none absolute top-4 right-4" onClick={toggleMenu} aria-label="Close Menu">
             <IoClose />
