@@ -46,7 +46,7 @@ const Shopping = () => {
                                     {/* Product Details */}
                                     <div className="flex-grow px-4 text-center sm:text-left">
                                         <h2 className="text-lg font-semibold">{item.name}</h2>
-                                        <p className="text-gray-500 text-sm">{item.description}</p>
+                                        
                                     </div>
 
                                     {/* Quantity Buttons */}

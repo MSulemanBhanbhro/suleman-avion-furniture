@@ -6,6 +6,8 @@ import { Outfit } from "next/font/google";
 import { WishlistProvider } from "./context/WishlistContext"; // Wishlist context import kiya
 import ReduxProvider from "./redux/provider";
 
+import { ClerkProvider } from "@clerk/nextjs";
+
 // Font Optimization: Using swap for better performance
 const outfit = Outfit({
   subsets: ["latin"],
@@ -28,6 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <head>
         {/* Preload critical fonts for faster rendering */}
@@ -49,5 +52,6 @@ export default function RootLayout({
         </ReduxProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

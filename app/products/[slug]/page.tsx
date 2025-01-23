@@ -118,9 +118,10 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
             width={600}
             height={600}
             alt={product.name}
-            className="w-full h-[540px] object-cover rounded-lg transition-all ease-in-out transform hover:scale-105"
+            className="w-full h-[540px] sm:h-[300px] md:h-[600px] object-cover rounded-lg transition-all ease-in-out transform hover:scale-105"
             priority
           />
+
         </div>
         <div className="w-full md:w-1/2 space-y-4">
           <h1 className="text-4xl font-semibold text-gray-900">{product.name}</h1>
@@ -143,15 +144,15 @@ const ProductListing = ({ params }: { params: { slug: string } }) => {
             <div className="text-gray-700 space-y-2">
               <div className="flex items-center gap-2">
                 <span className="text-gray-500">Width:</span>
-                <span>{product.dimensions.width} cm</span>
+                <span>{product.dimensions.width} </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-gray-500">Height:</span>
-                <span>{product.dimensions.height} cm</span>
+                <span>{product.dimensions.height} </span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-gray-500">Depth:</span>
-                <span>{product.dimensions.depth} cm</span>
+                <span>{product.dimensions.depth} </span>
               </div>
             </div>
           </div>
